@@ -1,11 +1,11 @@
 const cloudinary = require("../middleware/cloudinary");
-const Post = require("../models/Post");
+const Kennel = require("../models/Kennel");
 // const Comment = require("../models/Comment");
 
 module.exports = {
   getProfile: async (req, res) => {
     try {
-      const posts = await Post.find({ user: req.user.id });
+      const posts = await Kennel.find({ user: req.user.id });
       res.render("profile.ejs", { posts: posts, user: req.user });
     } catch (err) {
       console.log(err);
@@ -13,15 +13,15 @@ module.exports = {
   },
   getFeed: async (req, res) => {
     try {
-      const posts = await Post.find().sort({ createdAt: "desc" }).lean();
-      res.render("feed.ejs", { posts: posts });
+      const posts = await Kennel.find().sort({ createdAt: "desc" }).lean();
+      res.render("feed.ejs", { posts: posts, user: req.postBy});
     } catch (err) {
       console.log(err);
     }
   },
   getPost: async (req, res) => {
     try {
-      const post = await Post.findById(req.params.id);
+      const post = await Kennel.findById(req.params.id);
       // const comments = await Comment.find({ post: req.params.id }).sort({ createdAt: "asc" }).lean();
       res.render("post.ejs", { 
         post: post, 
@@ -37,7 +37,7 @@ module.exports = {
       // Upload image to cloudinary
       const result = await cloudinary.uploader.upload(req.file.path);
 
-      await Post.create({
+      await Kennel.create({
         kennel: req.body.kennel,
         image: result.secure_url,
         cloudinaryId: result.public_id,
@@ -48,8 +48,9 @@ module.exports = {
         KennelEmail: req.body.KennelEmail,
         likes: 0,
         user: req.user.id,
+        postBy: req.user.userName
       });
-      console.log("Post has been added!");
+      console.log("Kennel has been added!");
       res.redirect("/profile");
     } catch (err) {
       console.log(err);
@@ -57,7 +58,7 @@ module.exports = {
   },
   likePost: async (req, res) => {
     try {
-      await Post.findOneAndUpdate(
+      await Kennel.findOneAndUpdate(
         { _id: req.params.id },
         {
           $inc: { likes: 1 },
@@ -72,11 +73,11 @@ module.exports = {
   deletePost: async (req, res) => {
     try {
       // Find post by id
-      let post = await Post.findById({ _id: req.params.id });
+      let post = await Kennel.findById({ _id: req.params.id });
       // Delete image from cloudinary
       await cloudinary.uploader.destroy(post.cloudinaryId);
       // Delete post from db
-      await Post.remove({ _id: req.params.id });
+      await Kennel.remove({ _id: req.params.id });
       console.log("Deleted Post");
       res.redirect("/profile");
     } catch (err) {

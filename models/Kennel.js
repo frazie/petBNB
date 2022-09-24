@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const PostSchema = new mongoose.Schema({
+const KennelSchema = new mongoose.Schema({
   kennel: {
     type: String,
     required: true,
@@ -41,10 +41,14 @@ const PostSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
   },
+  postBy: {
+    type: String,
+    ref: "User",
+  },
   createdAt: {
     type: Date,
     default: Date.now,
   },
 });
 
-module.exports = mongoose.model("Post", PostSchema);
+module.exports = mongoose.model("Kennel", KennelSchema);
