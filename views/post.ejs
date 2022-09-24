@@ -1,9 +1,11 @@
 <%- include('partials/header') -%>
 <div class="container h-auto">
   <div class="row justify-content-center mt-5">
-    <div class="col-6">
-      <h2><%= post.title %></h2>
+    <div class="col-5">
+      <h2>Name of Kennel: <%= post.kennel %></h2>
+      <br>
       <img class="img-fluid" src="<%= post.image%>" />
+      <br>
       <div class="row justify-content-between">
         <form
           class="col-1"
@@ -12,7 +14,7 @@
         >
           <button class="btn btn-primary fa fa-heart" type="submit"></button>
         </form>
-        <h3 class="col-3">Likes: <%= post.likes %></h3>
+        <h2 class="col-2">Likes: <%= post.likes %></h2>
         <%if(post.user == user.id){ %>
         <form
           action="/post/deletePost/<%= post.id %>?_method=DELETE"
@@ -24,11 +26,18 @@
         <%}%>
       </div>
     </div>
-    <div class="col-3 mt-5">
-      <p><%= post.caption %></p>
+    <div class="col-5 mt-5">
+      <p>Kennel Capacity: <%= post.capacity %></p>
+      <p>Description: <%= post.description %></p>
+      <p>Location: <%= post.location %></p>
+
+      <br>
+      <span> <%= post.kennel %> contact information</span>
+      <p>Contact: <%= post.contact %></p>
+      <p>Email: <%= post.KennelEmail %></p>
     </div>
 
-    <div class="col-6 mt-5">
+    <div class="col-8 mt-5">
       <a class="btn btn-primary" href="/profile">Return to Profile</a>
       <a class="btn btn-primary" href="/feed">Return to Feed</a>
     </div>

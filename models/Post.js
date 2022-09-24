@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const PostSchema = new mongoose.Schema({
-  title: {
+  kennel: {
     type: String,
     required: true,
   },
@@ -13,7 +13,23 @@ const PostSchema = new mongoose.Schema({
     type: String,
     require: true,
   },
-  caption: {
+  description: {
+    type: String,
+    required: true,
+  },
+  location: {
+    type: String,
+    required: true,
+  },
+  capacity: {
+    type: Number,
+    required: true,
+  },
+  contact: {
+    type: String,
+    required: true,
+  },
+  KennelEmail: {
     type: String,
     required: true,
   },

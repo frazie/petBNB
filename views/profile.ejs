@@ -8,36 +8,55 @@
               <a href="/logout" class="col-3 btn btn-primary">Logout</a>
           </div>
           <div class="mt-5">
-            <h2>Add a post</h2>
+            <h2>Register Your Kennel Here</h2>
             <form action="/post/createPost" enctype="multipart/form-data" method="POST">
               <div class="mb-3">
-                  <label for="title" class="form-label">Title</label>
-                  <input type="text" class="form-control" id="title" name="title">
+                  <label for="kennel" class="form-label">Kennel Name</label>
+                  <input type="text" class="form-control" id="kennel" name="kennel">
               </div>
               <div class="mb-3">
-                <label for="caption" class="form-label">Caption</label>
-                <textarea class="form-control" id="caption" name="caption"></textarea>
+                <label for="location" class="form-label">Kennel Location</label>
+                <input type="text" class="form-control" id="location" name="location">
+            </div>
+              <div class="mb-3">
+                <label for="contact" class="form-label">Kennel Contact Number</label>
+                <input type="text" class="form-control" id="contact" name="contact" placeholder="000-0000-0000">
               </div>
               <div class="mb-3">
-                <label for="imgUpload" class="form-label">Image</label>
+                <label for="KennelEmail" class="form-label">Kennel Email</label>
+                <input type="text" class="form-control" id="KennelEmail" name="KennelEmail">
+              </div>
+              <div class="mb-3">
+                <label for="capacity" class="form-label">Kennel Capacity</label>
+                <input type="number" class="form-control" id="capacity" name="capacity">
+              </div>
+              <div class="mb-3">
+                <label for="description" class="form-label">Description</label>
+                <textarea class="form-control" id="description" name="description"></textarea>
+              </div>
+              <div class="mb-3">
+                <label for="imgUpload" class="form-label">Kennel Image</label>
                 <input type="file" class="form-control" id="imageUpload" name="file">
               </div>
+              
               <button type="submit" class="btn btn-primary bg-blue-500" value="Upload">Submit</button>
             </form>
           </div>
       </div>
       <div class="col-8">
+        <p>Kennels Under Your account: <%= posts.length%></p>
+        <br>
         <% for(var i=0; i<posts.length; i++) {%>
         <div class="card lg:card-side shadow-xl">
           <figure>
             <img class="img-fluid w-80 h-60 p-2 rounded-xl m-auto" src="<%= posts[i].image%>">
           </figure>
           <div class="row card-body">
-            <h2 class="card-title"><%= posts[i].title%></h2>
-            <p><%= posts[i].caption%></p>
+            <h2 class="card-title">Kennel Name: <%= posts[i].kennel%></h2>
+            <p>Kennel Capacity: <%= posts[i].capacity%></p>
             <div class="card-actions justify-end">
               <a href="/post/<%= posts[i]._id%>">
-                  <button class="btn btn-primary">see listing</button>
+                  <button class="btn btn-primary">See Listing</button>
               </a>
             </div>
           </div>
