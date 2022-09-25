@@ -1,7 +1,7 @@
 <%- include('partials/header') -%>
-    <main class="container">
+    <main class="container overflow-auto mb-5">
         <div class="row justify-content-center">
-            <section class="col-6 mt-5">
+            <section class="col-6 mt-3">
                 <% if (locals.messages.errors) { %>
                     <% messages.errors.forEach( el => { %>
                         <div class="alert alert-danger"><%= el.msg %></div>

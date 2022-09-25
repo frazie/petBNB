@@ -22,7 +22,7 @@ module.exports = {
     deleteBooking: async (req, res) => {
       try {
         await Booking.deleteOne({
-          _id: req.params.commentid
+          _id: req.params.bookingid
         })
         console.log("Booking has been deleted");
         res.redirect("/post/"+req.params.postid)
