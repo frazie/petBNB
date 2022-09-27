@@ -2,6 +2,20 @@ const Booking = require("../models/Booking");
 
 module.exports = {
   
+  
+    getBooking: async (req, res) => {
+      try {
+        const Booking = await Booking.findById(req.params.id);
+        // const comments = await Comment.find({ post: req.params.id }).sort({ createdAt: "asc" }).lean();
+        res.render("booking.ejs", { 
+          kennel: kennel, 
+          user: bookedBy, 
+          
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    },
     createBooking: async (req, res) => {
       try {
         await Booking.create({
@@ -9,6 +23,7 @@ module.exports = {
           bookedBy: req.user.userName,
           bookedById: req.user.id,
           pet: req.body.pet,
+          petNumber: req.body.petNumber,
           comment: req.body.comment,
           BookingFrom: req.body.BookingFrom,
           BookingTill: req.body.BookingTill,
