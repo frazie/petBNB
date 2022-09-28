@@ -1,5 +1,6 @@
 const cloudinary = require("../middleware/cloudinary");
 const Kennel = require("../models/Kennel");
+const moment = require('moment');
 // const Comment = require("../models/Comment");
 
 module.exports = {
@@ -14,7 +15,7 @@ module.exports = {
   getFeed: async (req, res) => {
     try {
       const posts = await Kennel.find().sort({ createdAt: "desc" }).lean();
-      res.render("feed.ejs", { posts: posts, user: req.postBy});
+      res.render("feed.ejs", { posts: posts, user: req.postBy, moment: moment});
     } catch (err) {
       console.log(err);
     }
