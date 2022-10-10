@@ -1,8 +1,8 @@
 <%- include('partials/insideHeader') -%>
-<div class="container pb-4">
-  <div class="row justify-content-center mt-5">
+<div class="container">
+  <div class="flex row justify-content-center mt-5">
     <div class="row col-5">
-      <div class="">
+      <div>
         <h2>Name of Kennel: <%= post.kennel %></h2>
         <h2 class="col-2">Liked By: <%= post.likes %></h2>
         <br>
@@ -47,8 +47,8 @@
     </div>
     
     <div>
-  <div id="default-modal" data-modal-show="false" aria-hidden="true" class="hidden overflow-x-hidden overflow-y-auto fixed h-modal md:h-full top-4 left-0 right-0 md:inset-0 z-50 justify-center items-center">
-      <div class="relative w-full max-w-2xl px-4 h-full md:h-auto">
+      <div id="default-modal" data-modal-show="false" aria-hidden="true" class="hidden overflow-x-hidden overflow-y-auto fixed h-modal md:h-full top-4 left-0 right-0 md:inset-0 z-50     justify-center items-center">
+        <div class="relative w-full max-w-2xl px-4 h-full md:h-auto">
           <!-- Modal content -->
           <div class="bg-white rounded-lg shadow relative dark:bg-gray-700">
               <!-- Modal header -->
@@ -99,14 +99,58 @@
               </div>
               
           </div>
+        </div>
       </div>
-  </div>
-
-
-
 
     </div>
     
+    <div>
+      <div class="antialiased mx-auto max-w-screen-sm">
+        <div>
+          <div class="mt-5">
+            <h2>Add a Comment</h2>
+            <form action="/comment/createComment/<%=post._id %>" method="POST">
+              <div class="mb-3">
+                  <input type="text" class="form-control" id="comment" name="comment">
+              </div>
+              <button type="submit" class="btn btn-primary" >Add Comment</button>
+            </form>
+          </div>
+        </div>
+        <h3 class="mb-4 text-lg font-semibold text-gray-900">Comments</h3>
+      
+        <div class="space-y-4">
+          <% for (var i=0; i < comments.length; i++) {%>
+          <div class="flex">
+            <div class="flex-shrink-0 mr-3">
+              <img class="mt-2 rounded-full w-8 h-8 sm:w-10 sm:h-10" src="https://images.unsplash.com/photo-1604426633861-11b2faead63c?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=200&h=200&q=80" alt="">
+            </div>
+            <div class="flex-1 border rounded-lg px-4 py-2 sm:px-6 sm:py-4 leading-relaxed">
+              <strong><%= comments[i].commentBy %></strong> <span class="text-xs text-gray-400">3:34 PM</span>
+              <p class="text-sm">
+                <%= comments[i].comment %>
+              </p>
+              <div class="mt-4 flex items-center">
+                
+                <div class="text-sm text-gray-500 font-semibold">
+                  <%if(comments[i].commentById == user.id){ %>
+                    <form
+                    action="/comment/deleteComment/<%=post._id %>/<%=comments[i]._id%>?_method=DELETE"
+                    method="POST"
+                    >
+                    <button class="btn btn-danger" type="submit">DELETE</button>
+                  </form>
+                  <%}%>
+                </div>
+              </div>
+            </div>
+          </div>
+          <% } %>
+          
+        </div>
+      </div>
+    </div>
+  
 
     <div class="col-8 mt-5">
       <a class="btn btn-primary" href="/profile">Return to Profile</a>
